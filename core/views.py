@@ -38,7 +38,7 @@ def index_filter(request,pk,page):
         page1 =1 
         paginator = Paginator(items, 1)
         page_obj = paginator.page(page1)
-    t = render_to_string('core/jsindex.html',{'page_obj':page_obj})
+    t = render_to_string('core/jsindex.html',{'page_obj':page_obj,'categories':categories})
     return JsonResponse({'data':t})
 
 

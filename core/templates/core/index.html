@@ -40,14 +40,13 @@
                 <nav aria-label="Page navigation example">
                     {%if page_obj%}
                     <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-                    
-                    {%endif%}
+                    <li class="page-item" ><button onclick="previous()" id = "p">previous</button></li>
                     {% for i in page_obj.paginator.page_range %}
-                      <li class="page-item"><button onclick="pagination({{i}})">{{i}}</button></li>
+                      <li class="page-item all"><button onclick="pagination({{i}})">{{i}}</button></li>
                       
                     {% endfor %}
+                    <li class="page-item" ><button onclick="next()" id = "n">next</button></li>
+
                     <!-- {% if page_obj.has_next %}
                       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
                       {% endif %} -->
@@ -63,12 +62,17 @@
 <script>
     var category = 0
     var pagenumber = 1
+    all = document.getElementsByClassName('all')
+    length = all.length
+    p = document.getElementById('p')
+    n = document.getElementById('n')
+    
     function filter(categoryid){ 
         // category = document.getElementById(`btn-${categoryid}`)
         category = categoryid
         pagenumber = 1
-        console.log(category)
-        console.log(pagenumber)
+        // console.log(category)
+        // console.log(pagenumber)
         
 
         
@@ -105,9 +109,10 @@
 
     function pagination(page){
         
+        
         pagenumber = page
-        console.log(category)
-        console.log(pagenumber)
+        // console.log(category)
+        // console.log(pagenumber)
         $.ajax({
             type: 'GET',
             url:`/${category}/${pagenumber}`,
@@ -123,6 +128,76 @@
         }
             )
         
+    }
+    function previous(){
+        
+        
+        
+        
+        if (pagenumber !=1){
+            pagenumber = pagenumber-1
+
+        }
+        else{
+            pagenumber = 1
+            
+
+        }
+        
+        // console.log(pagenumber)
+        $.ajax({
+            type: 'GET',
+            url:`/${category}/${pagenumber}`,
+            data:{"page":1} ,
+            success: function (response) {
+                $("#tbody").html(response.data)
+
+                
+            },
+            error: function (response) {
+              
+            }
+        }
+            )
+        
+    }
+    function next(){
+        
+        
+        
+        
+        if (pagenumber !=length){
+            pagenumber = pagenumber+1
+
+        }
+        else{
+            pagenumber = length
+            
+
+        }
+        
+        // console.log(pagenumber)
+        $.ajax({
+            type: 'GET',
+            url:`/${category}/${pagenumber}`,
+            data:{"page":1} ,
+            success: function (response) {
+                $("#tbody").html(response.data)
+
+                
+            },
+            error: function (response) {
+              
+            }
+        }
+            )
+        
+    }
+    if (pagenumber ==1){
+        p.style.display = "none"
+    }
+    if (pagenumber ==length){
+        n.style.display = "none"
     }
 
 </script>

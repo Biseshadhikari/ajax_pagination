@@ -1,20 +1,28 @@
-{%for item in page_obj%}
-                <div class="card shadow p-2 mb-4 bg-white rounded mx-2" style="width: 20rem; ">
-                    
-                    <div class="card-body">
-                      <h5 class="card-title">{{item.title}}</h5>
-                      <p>{{item.description}}</p>
-                    </div>
-                </div>
-{%endfor%}
+
+  {%for item in page_obj%}
+  <div class="card shadow p-2 mb-4 bg-white rounded mx-2" style="width: 20rem; ">
+      
+      <div class="card-body">
+        <h5 class="card-title">{{item.title}}</h5>
+        <p>{{item.description}}</p>
+      </div>
+  </div>
+  {%endfor%}
+ 
+    
+</div>
 <div class="row bg-red justify-content-center mt-5">
   <nav aria-label="Page navigation example">
       {%if page_obj%}
       <ul class="pagination">
+        <li class="page-item"><button onclick="previous()" id = "p">previous</button></li>
+
       {% for i in page_obj.paginator.page_range %}
         <li class="page-item"><button onclick="pagination({{i}})">{{i}}</button></li>
         
       {% endfor %}
+      <li class="page-item" ><button onclick="next()" id = "n">next</button></li>
+
       <!-- {% if page_obj.has_next %}
         <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
         {% endif %} -->
@@ -22,4 +30,5 @@
       
       {%endif%}
     </nav>
+</div>
 </div>
