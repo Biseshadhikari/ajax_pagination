@@ -9,7 +9,7 @@ def index(request):
     page1 = request.GET.get('page')
     items = Items.objects.all()
     if page1 is not None:
-        paginator = Paginator(items, 1)
+        paginator = Paginator(items, 3)
         page_obj = paginator.page(page1)
     else:   
         page1 =1 

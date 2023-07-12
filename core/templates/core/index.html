@@ -37,16 +37,21 @@
                   
             </div>
             <div class="row bg-red justify-content-center mt-5">
+                {% if page_obj.has_other_pages %}
                 <nav aria-label="Page navigation example">
+
                     {%if page_obj%}
                     <ul class="pagination">
+                        {% if page_obj.has_previous %}
                     <li class="page-item" ><button onclick="previous()" id = "p">previous</button></li>
+                    {%endif%}
                     {% for i in page_obj.paginator.page_range %}
                       <li class="page-item all"><button onclick="pagination({{i}})">{{i}}</button></li>
                       
                     {% endfor %}
+                    {% if page_obj.has_next %}
                     <li class="page-item" ><button onclick="next()" id = "n">next</button></li>
-
+                    {%endif%}
                     <!-- {% if page_obj.has_next %}
                       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
                       {% endif %} -->
@@ -54,6 +59,7 @@
                     
                     {%endif%}
                   </nav>
+                  {%endif%}
             </div>
         </div>
     </div>
@@ -62,10 +68,7 @@
 <script>
     var category = 0
     var pagenumber = 1
-    all = document.getElementsByClassName('all')
-    length = all.length
-    p = document.getElementById('p')
-    n = document.getElementById('n')
+
     
     function filter(categoryid){ 
         // category = document.getElementById(`btn-${categoryid}`)
@@ -192,12 +195,6 @@
         }
             )
         
-    }
-    if (pagenumber ==1){
-        p.style.display = "none"
-    }
-    if (pagenumber ==length){
-        n.style.display = "none"
     }
 
 </script>
