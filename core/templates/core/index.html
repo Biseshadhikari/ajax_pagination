@@ -4,6 +4,10 @@
 
 {%block content%}
 <style>
+    .active{
+        color:red;
+    }
+
 </style>
 <div class="container-fluid px-5 mt-3">
     <div class="row justify-content-center mt-3">
@@ -14,10 +18,10 @@
         <div class="col-log-4 mr-5 mt-5 ml-5">
             <ul class="list-group">
                 <li id = "btn-0" class="list-group-item " onclick = "filter({{0}})">
-                    <button  style="background: transparent; border: none; outline: none;">All</button>
+                    <button  style="background: transparent; border: none; outline: none;" class="btn active">All</button>
                 </li>
                 {%for category in categories%}
-                <li class="list-group-item  category"id = "btn-{{category.id}}" onclick = "filter({{category.id}})"><button class = "" style="background: transparent; border: none; outline: none;">{{category.name}}</button></li>
+                <li class="list-group-item  category"id = "btn-{{category.id}}" onclick = "filter({{category.id}})"><button class = "btn" style="background: transparent; border: none; outline: none;">{{category.name}}</button></li>
                 {%endfor%}
                 
               </ul>
@@ -37,7 +41,7 @@
                   
             </div>
             <div class="row bg-red justify-content-center mt-5">
-                {% if page_obj.has_other_pages %}
+                
                 <nav aria-label="Page navigation example">
 
                     {%if page_obj%}
@@ -59,7 +63,6 @@
                     
                     {%endif%}
                   </nav>
-                  {%endif%}
             </div>
         </div>
     </div>
@@ -68,7 +71,30 @@
 <script>
     var category = 0
     var pagenumber = 1
+    all = document.getElementsByClassName('all')
+    length = all.length
+    p = document.getElementById('p')
+    n = document.getElementById('n')
+    let btn = document.querySelectorAll('.btn')
+    
+    btn.forEach(button=>{
+        button.addEventListener('click',function(){
+            // console.log('hello')
+            btn.forEach(x=>x.classList.remove('active'))
+            this.classList.add('active')
+        })
 
+    })
+    let pagebtn = document.querySelectorAll('.pagbtn')
+    console.log(pagebtn)
+    pagebtn.forEach(y=>{
+        y.addEventListener('click',function(){
+            console.log('hello')
+            pagebtn.forEach(x=>x.classList.remove('active'))
+            this.classList.add('active')
+        })
+
+    })
     
     function filter(categoryid){ 
         // category = document.getElementById(`btn-${categoryid}`)
